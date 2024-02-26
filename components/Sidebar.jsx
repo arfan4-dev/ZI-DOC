@@ -25,7 +25,7 @@ function Sidebar({isOpen}) {
         initial={{ opacity: 0, x: -5 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 200 }}
-        transition={{ duration: '0.3' }}
+        transition={{ duration: '0.5' }}
           className=" bg-black sm:w-[180px] sm:h-[750px] md:w-[180px] md:h-[750px] lg:w-[200px] lg:h-[840px] xl:w-[200px] xl:h-[850px] 2xl:w-[262px] 2xl:h-[1079px] customScrollbar overflow-y-auto">
           <div className="relative">
             <p className="text-[#FFFFFF] -rotate-90 sm:text-[10px]  md:text-[12px] xl:text-[14px] 2xl:text-[20px] tracking-[3px] absolute sm:-left-7 sm:top-[50px] md:-left-8 md:top-[50px] lg:-left-8 lg:top-[60px] xl:-left-10 xl:top-[60px] 2xl:-left-12 2xl:top-[75px]"><span className="text-[#BE9F56] ">|</span> <span>PRODUCTS</span></p>
