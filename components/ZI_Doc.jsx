@@ -29,7 +29,7 @@ export default function ZI_Doc() {
     <div ref={menuRef}>
       {
 
-        isOpen ? <AnimatePresence><Sidebar isOpen={isOpen} /></AnimatePresence>  : <div className=" customScrollbar  bg-[#000000] w-[30px] lg:w-[34px] sm:h-[528px] lg:h-[704px] xl:h-[1056px] 2xl:h-[1056px] 3xl:h-[1079px] absolute left-0 top-0 overflow-y-auto">
+        isOpen ? <AnimatePresence><Sidebar isOpen={isOpen} /></AnimatePresence>  : <div className=" customScrollbar  bg-[#000000] w-[30px] lg:w-[34px] sm:h-[528px] lg:h-[704px] xl:h-[100%] 2xl:h-[1056px] 3xl:h-[1079px] absolute left-0 top-0 overflow-y-auto">
           <p className="uppercase text-[#FFFFFF] tracking-[2px]  -rotate-90 absolute sm:-left-[7px]  sm:top-7 lg:-left-[14px] md:top-6 md:-left-2  lg:top-8 xl:-left-[15px]  xl:top-[25px]  2xl:-left-[26px]  2xl:top-14  text-[6px] lg:text-[9px]  2xl:text-[14px]">
             products
           </p>
