@@ -13,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main >
      <ZI_Doc/>
      {/* <Sidebar/> */}
      {/* <Drawer/> */}
