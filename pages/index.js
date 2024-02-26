@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import ZI_Doc from '../components/ZI_Doc'
 import Sidebar from '../components/Sidebar'
+import Drawer from '../components/DrawerBar'
 
 export default function Home() {
   return (
@@ -13,8 +14,9 @@ export default function Home() {
       </Head>
 
       <main>
-     {/* <ZI_Doc/> */}
+     <ZI_Doc/>
      {/* <Sidebar/> */}
+     {/* <Drawer/> */}
       </main>
 
     

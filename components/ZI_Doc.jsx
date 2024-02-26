@@ -1,68 +1,94 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FaRegUser } from "react-icons/fa6";
+import Sidebar from "./Sidebar";
+import { AnimatePresence } from "framer-motion";
 
 export default function ZI_Doc() {
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  const handleClickOutside = useMemo(
+    () => (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    },
+    [menuRef]
+  );
+
+  useEffect(() => {
+    const handleClick = (e) => handleClickOutside(e);
+    document.addEventListener("click", handleClick, true);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [handleClickOutside]);
   return (
-    <div className="">
-      <div className="customScrollbar  bg-[#000000] w-[30px] lg:w-[34px] sm:h-[528px] lg:h-[704px] xl:h-[100%] 2xl:h-[1055px] absolute left-0 top-0 overflow-y-auto">
-        <p className="uppercase text-[#FFFFFF] tracking-[2px]  -rotate-90 absolute sm:-left-[7px]  sm:top-7 lg:-left-[14px] md:top-6 md:-left-2  lg:top-8 xl:-left-[15px]  xl:top-[25px]  2xl:-left-[26px]  2xl:top-14  text-[6px] lg:text-[9px]  2xl:text-[14px]">
-          products
-        </p>
-        <p className="uppercase text-[#FFFFFF] -rotate-90  sm:mt-[35px] md:mt-[35px] lg:mt-[50px] xl:mt-[40px]  2xl:mr-0 2xl:mt-[100px] text-[12px] lg:text-[16px]">|</p>
-       
-        <p className="  text-[6px] lg:text-[9px]  2xl:text-[14px] uppercase text-[#FFFFFF] tracking-[2px]  -rotate-90 sm:mt-[30px] md:mt-[35px] lg:mt-[45px] xl:mt-[45px] 2xl:mt-[75px] sm:-mb-[5px] lg:-mb-2  xl:-mb-3  2xl:-mb-2">
-          solution
-        </p>
-        <p className=" uppercase text-[#FFFFFF] -rotate-90 text-[12px] lg:text-[16px]">
-          |
-        </p>
+    <div ref={menuRef}>
+      {
+
+        isOpen ? <AnimatePresence><Sidebar isOpen={isOpen} /></AnimatePresence>  : <div className=" customScrollbar  bg-[#000000] w-[30px] lg:w-[34px] sm:h-[528px] lg:h-[704px] xl:h-[1056px] 2xl:h-[1056px] 3xl:h-[1079px] absolute left-0 top-0 overflow-y-auto">
+          <p className="uppercase text-[#FFFFFF] tracking-[2px]  -rotate-90 absolute sm:-left-[7px]  sm:top-7 lg:-left-[14px] md:top-6 md:-left-2  lg:top-8 xl:-left-[15px]  xl:top-[25px]  2xl:-left-[26px]  2xl:top-14  text-[6px] lg:text-[9px]  2xl:text-[14px]">
+            products
+          </p>
+          <p className="uppercase text-[#FFFFFF] -rotate-90  sm:mt-[35px] md:mt-[35px] lg:mt-[50px] xl:mt-[40px]  2xl:mr-0 2xl:mt-[100px] text-[12px] lg:text-[16px]">|</p>
+
+          <p className="  text-[6px] lg:text-[9px]  2xl:text-[14px] uppercase text-[#FFFFFF] tracking-[2px]  -rotate-90 sm:mt-[30px] md:mt-[35px] lg:mt-[45px] xl:mt-[45px] 2xl:mt-[75px] sm:-mb-[5px] lg:-mb-2  xl:-mb-3  2xl:-mb-2">
+            solution
+          </p>
+          <p className=" uppercase text-[#FFFFFF] -rotate-90 text-[12px] lg:text-[16px]">
+            |
+          </p>
 
 
-       <p className="  text-[6px] lg:text-[9px]  2xl:text-[14px] uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 sm:mt-[63px] md:mt-[65px] lg:mt-[87px] 2xl:mt-[135px] sm:-mb-1 md:-mb-[8px]  lg:-mb-2 2xl:-mb-2">
-          documentation
-        </p>
-        <p className="text-[12px] lg:text-[16px] uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 ">
-          |
-        </p>
+          <p className="  text-[6px] lg:text-[9px]  2xl:text-[14px] uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 sm:mt-[63px] md:mt-[65px] lg:mt-[87px] 2xl:mt-[135px] sm:-mb-1 md:-mb-[8px]  lg:-mb-2 2xl:-mb-2">
+            documentation
+          </p>
+          <p className="text-[12px] lg:text-[16px] uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 ">
+            |
+          </p>
 
 
           <p className=" text-[6px] lg:text-[9px]  2xl:text-[14px] uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 sm:mt-[95px] md:mt-[95px] lg:mt-[126px] xl:mt-[125px] 2xl:mt-[185px] flex sm:-mb-[5px]  md:-mb-[8px] lg:-mb-2 xl:-mb-3 2xl:-mb-2">
-          electronic
-          <span className=" text-[#FFFFFF] ml-1  text-[6px] lg:text-[9px]  2xl:text-[14px]">
-            {" "}
-            signature
-          </span>
-        </p>
-        <p className="uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 text-[12px] lg:text-[16px]">|</p>
+            electronic
+            <span className=" text-[#FFFFFF] ml-1  text-[6px] lg:text-[9px]  2xl:text-[14px]">
+              {" "}
+              signature
+            </span>
+          </p>
+          <p className="uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 text-[12px] lg:text-[16px]">|</p>
 
-       <p className="uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 sm:mt-[40px] md:mt-[43px] lg:mt-[54px] xl:mt-[53px] 2xl:mt-[85px]  text-[6px] lg:text-[9px]  2xl:text-[14px] sm:-mb-[6px] md:-mb-[8px] lg:-mb-2 xl:-mb-3 2xl:-mb-2">
-          industries
-        </p>
-        <p className="uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 text-[12px] lg:text-[16px]">|</p>
+          <p className="uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 sm:mt-[40px] md:mt-[43px] lg:mt-[54px] xl:mt-[53px] 2xl:mt-[85px]  text-[6px] lg:text-[9px]  2xl:text-[14px] sm:-mb-[6px] md:-mb-[8px] lg:-mb-2 xl:-mb-3 2xl:-mb-2">
+            industries
+          </p>
+          <p className="uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 text-[12px] lg:text-[16px]">|</p>
 
-         <p className="uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 sm:mt-[80px] md:mt-[85px] lg:mt-[106px]  xl:mt-[105px] 2xl:mt-[165px] flex  text-[6px] lg:text-[9px]  2xl:text-[14px] sm:-mb-1 md:-mb-2 lg:-mb-3">
-          aes<span className="text-[#FFFFFF] mx-1  text-[6px] lg:text-[9px]  2xl:text-[14px]">256</span>
-          <span className="text-[#FFFFFF]   text-[6px] lg:text-[9px]  2xl:text-[14px]">
-            encription
-          </span>
-        </p>
-        <p className="uppercase text-[#FFFFFF]  -rotate-90 text-[12px] lg:text-[16px]">|</p>
+          <p className="uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 sm:mt-[80px] md:mt-[85px] lg:mt-[106px]  xl:mt-[105px] 2xl:mt-[165px] flex  text-[6px] lg:text-[9px]  2xl:text-[14px] sm:-mb-1 md:-mb-2 lg:-mb-3">
+            aes<span className="text-[#FFFFFF] mx-1  text-[6px] lg:text-[9px]  2xl:text-[14px]">256</span>
+            <span className="text-[#FFFFFF]   text-[6px] lg:text-[9px]  2xl:text-[14px]">
+              encription
+            </span>
+          </p>
+          <p className="uppercase text-[#FFFFFF]  -rotate-90 text-[12px] lg:text-[16px]">|</p>
 
-        <p className=" text-[6px] lg:text-[9px]  2xl:text-[14px] uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 sm:mt-[25px] md:mt-[28px] lg:mt-[33px] xl:mt-8 2xl:mt-16">
-          pricing
-        </p>
-        {/* */}
-      </div>
+          <p className=" text-[6px] lg:text-[9px]  2xl:text-[14px] uppercase text-[#FFFFFF] tracking-[2px] -rotate-90 sm:mt-[25px] md:mt-[28px] lg:mt-[33px] xl:mt-8 2xl:mt-16">
+            pricing
+          </p>
+          {/* */}
+        </div>
+      }
 
-     
-      
-    {/* Navbar */}
-     <div className=" sm:ml-14 sm:mr-8 sm:mt-12 lg:ml-14 lg:mr-10 lg:mt-12 xl:ml-14 xl:mr-10 xl:mt-12 2xl:ml-14 2xl:mr-20 2xl:mt-16 flex items-center justify-between ">
+
+      {/* Navbar */}
+
+      <div className="sm:ml-14 sm:mr-8 sm:mt-12 lg:ml-14 lg:mr-10 lg:mt-12 xl:ml-14 xl:mr-10 xl:mt-12 2xl:ml-14 2xl:mr-20 2xl:mt-16 flex items-center justify-between ">
         <img
           src="/assets/zi_doc_logo.svg"
           alt="zi_doc"
-          className="sm:w-[60px] sm:h-[40px] lg:w-[90px] lg:h-[50px] 2xl:w-[129px] 2xl:h-[60px] 2xl:mr-40"
+          className="cursor-pointer sm:w-[60px] sm:h-[40px] lg:w-[90px] lg:h-[50px] 2xl:w-[129px] 2xl:h-[60px] 2xl:mr-40"
+          onClick={() => setIsOpen(!isOpen)}
         />
         <img
           src="/assets/logo.svg"
@@ -88,7 +114,7 @@ export default function ZI_Doc() {
         </div>
       </div>
 
-        <div>
+      <div>
         <img
           src="/assets/ZIMA_AI.svg"
           alt="AI_LOGO"
@@ -110,7 +136,7 @@ export default function ZI_Doc() {
           />
           <hr className="sm:ml-3 sm:mr-3 xl:ml-6 xl:mr-6" />
         </div>
-      </div> 
+      </div>
     </div>
   );
 }
