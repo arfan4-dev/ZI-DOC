@@ -2,12 +2,21 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FaRegUser } from "react-icons/fa6";
 import Sidebar from "./Sidebar";
-import { AnimatePresence } from "framer-motion";
+import { getDate, getDay, getMonth, getYear, getTime } from "../lib/getDate";
+import { getLocation } from "../lib/getLocation";
+import { getVisitor } from "../lib/helper";
 
 export default function ZI_Doc() {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
-
+  const [visitor, setVisitor] = useState();
+  const [date, setDate] = useState([{
+    currentDay: getDay(),
+    currentDate: getDate(),
+    currentMonth: getMonth(),
+    currentYear: getYear(),
+    currentTime: getTime(),
+  }])
   const handleClickOutside = useMemo(
     () => (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -25,11 +34,30 @@ export default function ZI_Doc() {
       document.removeEventListener("click", handleClick);
     };
   }, [handleClickOutside]);
+
+  useEffect(() => {
+    let location = getLocation();
+    setVisitor(getVisitor(location.latitude, location.longitude));
+    const visitorData = JSON.parse(localStorage.getItem("visitor"));
+    setVisitor(visitorData);
+    setInterval(() => {
+      Promise.all([getDate(), getMonth(), getDay(), getYear(), getTime()])
+        .then(values => {
+          const [currentDate, currentMonth, currentYear, currentDay, currentTime] = values;
+          setDate({ ...date, currentDay, currentDate, currentMonth, currentYear, currentTime });
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+    }, 10000)
+  }, [])
+
+
   return (
     <div className="" ref={menuRef}>
       {
 
-        isOpen ? <Sidebar isOpen={isOpen} /> : <div className=" customScrollbar  bg-[#000000] w-[30px] lg:w-[34px] sm:h-[528px] md:h-[527px] lg:h-[703px] xl:h-[607px] 2xl:h-[1056px] 3xl:h-[1079px] absolute left-0 top-0 overflow-y-auto">
+        isOpen ? <Sidebar isOpen={isOpen} /> : <div onClick={() => setIsOpen(!isOpen)}  className=" customScrollbar cursor-pointer bg-[#000000] w-[30px] lg:w-[34px] sm:h-[528px] md:h-[527px] lg:h-[703px] xl:h-[607px] 2xl:h-[1056px] 3xl:h-[1079px] absolute left-0 top-0 overflow-y-auto">
           <p className="uppercase text-[#FFFFFF] tracking-[2px]  -rotate-90 absolute sm:-left-[7px]  sm:top-7 lg:-left-[14px] md:top-6 md:-left-2  lg:top-8 xl:-left-[15px]  xl:top-[30px]  2xl:-left-[26px]  2xl:top-14  text-[6px] lg:text-[9px]  2xl:text-[14px]">
             products
           </p>
@@ -82,12 +110,12 @@ export default function ZI_Doc() {
 
       {/* Navbar */}
 
-      <div className="sm:ml-12 sm:mr-5 sm:mt-7 md:ml-11 md:mt-6 md:mr-7 lg:ml-14 lg:mr-9 lg:mt-8 xl:ml-14 xl:mr-7 xl:mt-[28px] 2xl:ml-14 2xl:mr-20 2xl:mt-[68px] flex items-center justify-between ">
+      <div className="sm:ml-12 sm:mr-5 sm:mt-7 md:ml-11 md:mt-6 md:mr-7 lg:ml-14 lg:mr-9 lg:mt-8 xl:ml-14 xl:mr-7 xl:mt-[28px] 2xl:ml-14 2xl:mr-[73px] 2xl:mt-[68px] flex items-center justify-between ">
         <img
           src="/assets/zi_doc_logo.svg"
           alt="zi_doc"
           className="cursor-pointer sm:w-[60px] sm:h-[40px] lg:w-[90px] lg:h-[50px] 2xl:w-[129px] 2xl:h-[60px] 2xl:mr-40"
-          onClick={() => setIsOpen(!isOpen)}
+         
         />
         <img
           src="/assets/logo.svg"
@@ -97,17 +125,17 @@ export default function ZI_Doc() {
 
         <div className="flex items-center sm:space-x-3 md:space-x-5 lg:space-x-6 xl:space-x-5 2xl:space-x-10">
           <div>
-            <p className=" text-[6px] lg:text-[8px] 2xl:text-[14px] tracking-[1px] xl:tracking-[2px]">
-              17:23 LONDON UNITED KINGDOM
+            <p className="font-lato text-[6px] lg:text-[8px] 2xl:text-[12px] tracking-[1px] xl:tracking-[2px]">
+              {date.currentTime} {visitor?.visitor_data?.cityName} {visitor?.visitor_data.countryName}
             </p>
-            <p className="text-[#BE9F56] lg:ml-10 2xl:ml-20 text-end text-[6px] lg:text-[8px] 2xl:text-[12px] tracking-[1px] xl:tracking-[2px]">
-              SUNDAY, 12 FEBURARY 2023
+            <p className="font-lato text-[#BE9F56] ml-1.5 xl:ml-2 2xl:ml-1 text-end text-[6px] lg:text-[8px] 2xl:text-[12px] tracking-[1px] xl:tracking-[2px]">
+              {date.currentYear}, {date.currentDate} {date.currentMonth} {date.currentDay}
             </p>
           </div>
           <img
-            src="/assets/UK.svg"
+            src={visitor?.visitor_data.country.app_icon}
             alt="flag logo"
-            className="sm:h-[15px] sm:w-[15px] md:h-[20px] md:w-[20px] xl:h-[25px] xl:w-[25px]"
+            className=" sm:h-[15px] sm:w-[15px] md:h-[20px] md:w-[20px] xl:h-[25px] xl:w-[25px]"
           />
           <FaRegUser className="w-[21px] h-[11px]" />
         </div>
@@ -119,10 +147,10 @@ export default function ZI_Doc() {
           alt="AI_LOGO"
           className="absolute sm:right-[28px] lg:right-[42px] xl:right-[35px] 2xl:right-[80px] w-[130px] h-[30px] md:w-[150px] md:h-[30px] xl:w-[150px] xl:h-[30px]  2xl:w-[184px] 2xl:h-[40px]"
         />
-        <p className="absolute text-[10px] md:text-[12px] lg:text-[16px] sm:right-[28px] lg:right-[40px] xl:right-[34px] 2xl:right-[80px] font-bold sm:top-28 md:top-[110px] lg:top-[125px] xl:top-[115px] 2xl:top-44">
+        <p className={`${isOpen&& 'hidden'} font-lato tracking-[1px] absolute text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] sm:right-[28px] lg:right-[40px] xl:right-[34px] 2xl:right-[80px] font-bold sm:top-28 md:top-[110px] lg:top-[135px] xl:top-[120px] 2xl:top-[180px]1`}>
           TRY FOR FREE
         </p>
-        <div className="bg-[#000000] sm:w-[300px] sm:h-[388px] md:w-[300px] md:h-[382px] lg:w-[400px] lg:h-[533px] xl:w-[380px] xl:h-[451px] 2xl:w-[541px] 2xl:h-[846px] absolute sm:top-[140px] md:top-36 lg:top-[170px] xl:top-[155px] 2xl:top-52 right-0 rounded-bl-[20px] rounded-tl-[20px]">
+        <div className="bg-[#000000] sm:w-[300px] sm:h-[388px] md:w-[300px] md:h-[382px] lg:w-[400px] lg:h-[533px] xl:w-[380px] xl:h-[451px] 2xl:w-[541px] 2xl:h-[837px] 3xl:h-[846px] absolute sm:top-[140px] md:top-36 lg:top-[170px] xl:top-[155px] 2xl:top-[220px] right-0 rounded-bl-[20px] rounded-tl-[20px]">
           <img
             src="/assets/arrow.svg"
             className="sm:w-[35px] sm:h-[50px] lg:w-[45px] lg:h-[60px] xl:w-[52px] xl:h-[68px] sm:ml-3 sm:mt-5 lg:ml-3 lg:mt-5 xl:ml-7 xl:mt-7"
