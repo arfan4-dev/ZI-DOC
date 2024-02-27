@@ -49,12 +49,12 @@ export default function ZI_Doc() {
         .catch(error => {
           console.error("Error:", error);
         });
-    }, 10000)
+    }, 1000)
   }, [])
 
 
   return (
-    <div className="" ref={menuRef}>
+    <div className="hidden sm:block" ref={menuRef}>
       {
 
         isOpen ? <Sidebar isOpen={isOpen} /> : <div onClick={() => setIsOpen(!isOpen)}  className=" customScrollbar cursor-pointer bg-[#000000] w-[30px] lg:w-[34px] sm:h-[528px] md:h-[527px] lg:h-[703px] xl:h-[607px] 2xl:h-[1056px] 3xl:h-[1079px] absolute left-0 top-0 overflow-y-auto">
@@ -141,13 +141,13 @@ export default function ZI_Doc() {
         </div>
       </div>
 
-      <div>
+      <div className="">
         <img
           src="/assets/ZIMA_AI.svg"
           alt="AI_LOGO"
           className="absolute sm:right-[28px] lg:right-[42px] xl:right-[35px] 2xl:right-[80px] w-[130px] h-[30px] md:w-[150px] md:h-[30px] xl:w-[150px] xl:h-[30px]  2xl:w-[184px] 2xl:h-[40px]"
         />
-        <p className={`${isOpen&& 'hidden'} font-lato tracking-[1px] absolute text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] sm:right-[28px] lg:right-[40px] xl:right-[34px] 2xl:right-[80px] font-bold sm:top-28 md:top-[110px] lg:top-[135px] xl:top-[120px] 2xl:top-[180px]1`}>
+        <p className={`${isOpen&& 'hidden'} font-lato tracking-[1px] absolute text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] sm:right-[28px] lg:right-[40px] xl:right-[34px] 2xl:right-[80px] font-bold sm:top-28 md:top-[110px] lg:top-[135px] xl:top-[120px] 2xl:top-[180px]`}>
           TRY FOR FREE
         </p>
         <div className="bg-[#000000] sm:w-[300px] sm:h-[388px] md:w-[300px] md:h-[382px] lg:w-[400px] lg:h-[533px] xl:w-[380px] xl:h-[451px] 2xl:w-[541px] 2xl:h-[837px] 3xl:h-[846px] absolute sm:top-[140px] md:top-36 lg:top-[170px] xl:top-[155px] 2xl:top-[220px] right-0 rounded-bl-[20px] rounded-tl-[20px]">
