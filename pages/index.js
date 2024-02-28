@@ -1,12 +1,11 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import ZI_Doc from '../components/ZI_Doc'
-import Sidebar from '../components/Sidebar'
 import Drawer from '../components/MobileScreen'
+
 
 export default function Home() {
 
-  
+
   return (
     <div>
       <Head>

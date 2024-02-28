@@ -1,31 +1,31 @@
 import { useEffect, useState } from "react"
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 /* eslint-disable @next/next/no-img-element */
-function Sidebar({isOpen}) {
+function Sidebar({ isOpen }) {
   const controls = useAnimation();
   useEffect(() => {
     if (isOpen) {
       // If the menu is open, animate it in
       controls.start({ opacity: 1, x: 0 });
-    } 
+    }
     else {
       // If the menu is closed, animate it out
-      controls.start({ opacity: 0, x: -100,duration:1 });
+      controls.start({ opacity: 0, x: -100, duration: 1 });
     }
 
 
-  }, [ isOpen,controls]);
+  }, [isOpen, controls]);
 
   return (
 
 
     <div className="overflow-y-auto customScrollbar h-screen absolute left-0 top-0 z-50">
-      <AnimatePresence >
-        <motion.div 
-        initial={{ opacity: 0, x: -5 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 200 }}
-        transition={{ duration: '0.5' }}
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0, x: -5 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -100, transition: { duration: 1 } }}
+          transition={{ duration: '0.2' }}
           className=" bg-black   w-[180px] h-[750px] sm:w-[180px] sm:h-[750px] md:w-[180px] md:h-[750px] lg:w-[200px] lg:h-[840px] xl:w-[200px] xl:h-[850px] 2xl:w-[262px] 2xl:h-[1079px] customScrollbar overflow-y-auto">
           <div className="relative">
             <p className="text-[#FFFFFF] -left-7 text-[10px] top-[50px] -rotate-90 sm:text-[10px]  md:text-[12px] xl:text-[14px] 2xl:text-[20px] tracking-[3px] absolute sm:-left-7 sm:top-[50px] md:-left-8 md:top-[50px] lg:-left-8 lg:top-[60px] xl:-left-10 xl:top-[60px] 2xl:-left-12 2xl:top-[75px]"><span className="text-[#BE9F56] ">|</span> <span>PRODUCTS</span></p>

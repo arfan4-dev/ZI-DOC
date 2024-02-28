@@ -5,6 +5,7 @@ import Sidebar from "./Sidebar";
 import { getDate, getDay, getMonth, getYear, getTime } from "../lib/getDate";
 import { getLocation } from "../lib/getLocation";
 import { getVisitor } from "../lib/helper";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function ZI_Doc() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,9 +56,21 @@ export default function ZI_Doc() {
 
   return (
     <div className="hidden sm:block" ref={menuRef}>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <Sidebar />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {
 
-        isOpen ? <Sidebar isOpen={isOpen} /> : <div onClick={() => setIsOpen(!isOpen)}  className=" customScrollbar cursor-pointer bg-[#000000] w-[30px] lg:w-[34px] sm:h-[528px] md:h-[527px] lg:h-[703px] xl:h-[607px] 2xl:h-[1056px] 3xl:h-[1079px] absolute left-0 top-0 overflow-y-auto">
+        !isOpen && <div onClick={() => setIsOpen(!isOpen)} className=" customScrollbar cursor-pointer bg-[#000000] w-[30px] lg:w-[34px] sm:h-[528px] md:h-[527px] lg:h-[703px] xl:h-[607px] 2xl:h-[1056px] 3xl:h-[1079px] absolute left-0 top-0 overflow-y-auto">
           <p className="uppercase text-[#FFFFFF] tracking-[2px]  -rotate-90 absolute sm:-left-[7px]  sm:top-7 lg:-left-[14px] md:top-6 md:-left-2  lg:top-8 xl:-left-[15px]  xl:top-[30px]  2xl:-left-[26px]  2xl:top-14  text-[6px] lg:text-[9px]  2xl:text-[14px]">
             products
           </p>
@@ -108,6 +121,8 @@ export default function ZI_Doc() {
       }
 
 
+
+
       {/* Navbar */}
 
       <div className="sm:ml-12 sm:mr-5 sm:mt-7 md:ml-11 md:mt-6 md:mr-7 lg:ml-14 lg:mr-9 lg:mt-8 xl:ml-14 xl:mr-7 xl:mt-[28px] 2xl:ml-14 2xl:mr-[73px] 2xl:mt-[68px] flex items-center justify-between ">
@@ -115,7 +130,7 @@ export default function ZI_Doc() {
           src="/assets/zi_doc_logo.svg"
           alt="zi_doc"
           className="cursor-pointer sm:w-[60px] sm:h-[40px] lg:w-[90px] lg:h-[50px] 2xl:w-[129px] 2xl:h-[60px] 2xl:mr-40"
-         
+
         />
         <img
           src="/assets/logo.svg"
@@ -147,7 +162,7 @@ export default function ZI_Doc() {
           alt="AI_LOGO"
           className="absolute sm:right-[28px] lg:right-[42px] xl:right-[35px] 2xl:right-[80px] w-[130px] h-[30px] md:w-[150px] md:h-[30px] xl:w-[150px] xl:h-[30px]  2xl:w-[184px] 2xl:h-[40px]"
         />
-        <p className={`${isOpen&& 'hidden'} font-lato tracking-[1px] absolute text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] sm:right-[28px] lg:right-[40px] xl:right-[34px] 2xl:right-[80px] font-bold sm:top-28 md:top-[110px] lg:top-[135px] xl:top-[120px] 2xl:top-[180px]`}>
+        <p className={`${isOpen && 'hidden'} font-lato tracking-[1px] absolute text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] sm:right-[28px] lg:right-[40px] xl:right-[34px] 2xl:right-[80px] font-bold sm:top-28 md:top-[110px] lg:top-[135px] xl:top-[120px] 2xl:top-[180px]`}>
           TRY FOR FREE
         </p>
         <div className="bg-[#000000] sm:w-[300px] sm:h-[388px] md:w-[300px] md:h-[382px] lg:w-[400px] lg:h-[533px] xl:w-[380px] xl:h-[451px] 2xl:w-[541px] 2xl:h-[837px] 3xl:h-[846px] absolute sm:top-[140px] md:top-36 lg:top-[170px] xl:top-[155px] 2xl:top-[220px] right-0 rounded-bl-[20px] rounded-tl-[20px]">
