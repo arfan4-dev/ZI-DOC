@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useRef } from 'react'
 import { FiAlignLeft } from 'react-icons/fi'
 import 'react-modern-drawer/dist/index.css'
 import Sidebar from './Sidebar'
+import { AnimatePresence,motion } from 'framer-motion';
 function MobileScreen() {
   const menuRef = useRef(null);
 
@@ -38,10 +39,17 @@ function MobileScreen() {
         </button>
         <img src="/assets/zi_doc_lock.svg" alt="" className='mr-4 w-[30px]' />
       </div>
-    {
-      isOpen && <Sidebar/>
-
-    }
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <Sidebar />
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* <Drawer
         open={isOpen}
         onClose={toggleDrawer}
